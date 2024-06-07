@@ -1,3 +1,28 @@
+<?php
+    
+    session_start();
+	include('./db.php');
+    $_SESSION["office_id"];
+
+
+    if(!isset($_SESSION["office_id"])){
+     header('location:login.php');
+    }
+
+	$Id =  $_SESSION["office_id"];
+	$get_user = "select * from user_information where office_id ='$Id'";
+	$run_user = mysqli_query($con, $get_user);
+	$row_user=mysqli_fetch_array($run_user);
+	//  $lr_id = $row_user['lr_id'];
+	//  $name = $row_user['lr_name'];
+	//  $email = $row_user['lr_email'];
+	//  $position = $row_user['lr_pos'];
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +41,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                   <a href="./adminprofile.html"> <img src="images/logo.png"></a>
+                   <a href="./adminprofile.php"> <img src="images/logo.png"></a>
                     <h2>Fon<span class="danger">Click</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -27,19 +52,19 @@
             </div>
 
             <div class="sidebar">
-                <a href="index.html">
+                <a href="index.php">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="register.html">
+                <a href="register.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>Add Users</h3>
                 </a>
-                <a href="./work.html" class="active">
+                <a href="./work.php" class="active">
                     <span class="material-icons-sharp">
                         insights
                     </span>
@@ -82,7 +107,7 @@
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="./login.html">
+                <a href="./login.php">
                     <span class="material-icons-sharp">
                         add
                     </span>
