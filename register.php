@@ -103,7 +103,7 @@ if (isset($_POST['btn'])) {
     font-size:20px; 
     padding: 10px;
     border-radius:5px;
-    ">Back</a>
+    ">Logout</a>
           </div>
         <form action="./register.php" method="post" enctype="multipart/form-data">
             <div class="form first">
@@ -163,12 +163,12 @@ if (isset($_POST['btn'])) {
                         </div>
 
                         <div class="input-field">
-                            <label>Your Image</label>
+                            <label>Upload Image</label>
                             <input type="file" name="image" required>
                         </div>
 
                         <div class="input-field">
-                            <label>CV or Resume</label>
+                            <label>Upload CV or Resume</label>
                             <input type="file" name="cv" required>
                         </div>
 

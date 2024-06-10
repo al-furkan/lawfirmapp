@@ -13,10 +13,31 @@
 	$get_user = "select * from user_information where office_id ='$Id'";
 	$run_user = mysqli_query($con, $get_user);
 	$row_user=mysqli_fetch_array($run_user);
-	//  $lr_id = $row_user['lr_id'];
-	//  $name = $row_user['lr_name'];
-	//  $email = $row_user['lr_email'];
-	//  $position = $row_user['lr_pos'];
+	 $id = $row_user['id'];
+	 $full_name = $row_user['full_name'];
+	 $dob = $row_user['dob'];
+	 $email = $row_user['email'];
+     $mobile = $row_user['mobile'];
+	 $gender = $row_user['gender'];
+	 $father_name = $row_user['father_name'];
+
+     $id_type = $row_user['id_type'];
+	 $id_number = $row_user['id_number'];
+	 $image = $row_user['image'];
+	 $cv = $row_user['cv'];
+     $issued_date = $row_user['issued_date'];
+	 $expiry_date = $row_user['expiry_date'];
+	 $address_type = $row_user['address_type'];
+	 $nationality = $row_user['nationality'];
+
+     $state = $row_user['state'];
+	 $district = $row_user['district'];
+	 $post_number = $row_user['post_number'];
+	 $ward_village = $row_user['ward_village'];
+     $occupation = $row_user['occupation'];
+	 $office_id = $row_user['office_id'];
+	 $password = $row_user['password'];
+	 $created_at = $row_user['created_at'];
 
 ?>
 
@@ -250,12 +271,12 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Reza</b></p>
-                        <small class="text-muted">Admin</small>
+                        <p>Hey, <b><?php echo $full_name; ?></b></p>
+                        <small class="text-muted"><?php echo $occupation; ?></small>
                     </div>
-                    <a href="./profile.html">
+                    <a href="./profile.php?id=<?php echo $id; ?>">
                         <div class="profile-photo">
-                            <img src="images/profile-1.jpg">
+                            <img src="<?php echo $image; ?>">
                         </div>
                     </a>
                 </div>

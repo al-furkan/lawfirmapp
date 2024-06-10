@@ -47,7 +47,8 @@ if(isset($_POST['login'])){
     $check_user = mysqli_num_rows($run_user);
 
     if($check_user==0){
-    echo " <script>alert('password or email is worng, please try again')</script>";
+    echo " <script>alert('Secret Key is worng, please try again')</script>";
+    echo "<script>window.open('error.html', '_self');</script>";
     }
     else{
         $_SESSION['re_key']=$id;

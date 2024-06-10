@@ -1,3 +1,46 @@
+<?php
+    
+    session_start();
+	include('./db.php');
+    $_SESSION["office_id"];
+
+
+    if(!isset($_SESSION["office_id"])){
+     header('location:login.php');
+    }
+
+	$Id =  $_SESSION["office_id"];
+	$get_user = "select * from user_information where office_id ='$Id'";
+	$run_user = mysqli_query($con, $get_user);
+	$row_user=mysqli_fetch_array($run_user);
+	 $id = $row_user['id'];
+	 $full_name = $row_user['full_name'];
+	 $dob = $row_user['dob'];
+	 $email = $row_user['email'];
+     $mobile = $row_user['mobile'];
+	 $gender = $row_user['gender'];
+	 $father_name = $row_user['father_name'];
+
+     $id_type = $row_user['id_type'];
+	 $id_number = $row_user['id_number'];
+	 $image = $row_user['image'];
+	 $cv = $row_user['cv'];
+     $issued_date = $row_user['issued_date'];
+	 $expiry_date = $row_user['expiry_date'];
+	 $address_type = $row_user['address_type'];
+	 $nationality = $row_user['nationality'];
+
+     $state = $row_user['state'];
+	 $district = $row_user['district'];
+	 $post_number = $row_user['post_number'];
+	 $ward_village = $row_user['ward_village'];
+     $occupation = $row_user['occupation'];
+	 $office_id = $row_user['office_id'];
+	 $password = $row_user['password'];
+	 $created_at = $row_user['created_at'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +52,44 @@
   <title>profile</title>
 </head>
 <body>
+<?php
+if(isset($_GET['id'])){
+    $get_id = $_GET['id'];
+
+
+$get_user= "select * from user_information where id='$get_id'";
+
+    $run_user = mysqli_query($con, $get_user);
+	$row_user=mysqli_fetch_array($run_user);
+	 $id = $row_user['id'];
+	 $full_name = $row_user['full_name'];
+	 $dob = $row_user['dob'];
+	 $email = $row_user['email'];
+     $mobile = $row_user['mobile'];
+	 $gender = $row_user['gender'];
+	 $father_name = $row_user['father_name'];
+
+     $id_type = $row_user['id_type'];
+	 $id_number = $row_user['id_number'];
+	 $image = $row_user['image'];
+	 $cv = $row_user['cv'];
+     $issued_date = $row_user['issued_date'];
+	 $expiry_date = $row_user['expiry_date'];
+	 $address_type = $row_user['address_type'];
+	 $nationality = $row_user['nationality'];
+
+     $state = $row_user['state'];
+	 $district = $row_user['district'];
+	 $post_number = $row_user['post_number'];
+	 $ward_village = $row_user['ward_village'];
+     $occupation = $row_user['occupation'];
+	 $office_id = $row_user['office_id'];
+	 $password = $row_user['password'];
+	 $created_at = $row_user['created_at'];
+
+
+}
+?>
   <div class="content">
     <div class="container">
         <div class="row">
@@ -16,16 +97,16 @@
                 <!-- meta -->
                 <div class="profile-user-box card-box bg-custom">
                     <div class="row">
-                        <div class="col-sm-6"><span class="float-left mr-3"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="thumb-lg rounded-circle"></span>
+                        <div class="col-sm-6"><span class="float-left mr-3"><img src="<?php echo $image; ?>" alt="" class="thumb-lg rounded-circle"></span>
                             <div class="media-body text-white">
-                                <h4 class="mt-1 mb-1 font-18">Michael A. Franklin</h4>
-                                <p class="font-13 text-light">User Experience Specialist</p>
-                                <p class="text-light mb-0">California, United States</p>
+                                <h4 class="mt-1 mb-1 font-18"><?php echo $full_name; ?></h4>
+                                <p class="font-13 text-light"><?php echo $occupation; ?></p>
+                                <p class="text-light mb-0"><?php echo $district; ?> <?php echo $nationality; ?></p>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="text-right">
-                                <button type="button" class="btn btn-light waves-effect"><i class="mdi mdi-account-settings-variant mr-1"></i> Edit Profile</button>
+                                <button type="button" class="btn btn-light waves-effect"><i class="mdi mdi-account-settings-variant mr-1"></i> <a href="editProfile.php?edpro=<?php echo $id; ?>">Edit Profile</a></button>
                             </div>
                         </div>
                     </div>
@@ -43,11 +124,11 @@
                         <p class="text-muted font-13">Hye, I’m Johnathan Doe residing in this beautiful world. I create websites and mobile apps with great UX and UI design. I have done work with big companies like Nokia, Google and Yahoo. Meet me or Contact me for any queries. One Extra line for filling space. Fill as many you want.</p>
                         <hr>
                         <div class="text-left">
-                            <p class="text-muted font-13"><strong>Full Name :</strong> <span class="m-l-15">Johnathan Deo</span></p>
-                            <p class="text-muted font-13"><strong>Mobile :</strong><span class="m-l-15">(+12) 123 1234 567</span></p>
-                            <p class="text-muted font-13"><strong>Email :</strong> <span class="m-l-15">coderthemes@gmail.com</span></p>
-                            <p class="text-muted font-13"><strong>Location :</strong> <span class="m-l-15">USA</span></p>
-                            <p class="text-muted font-13"><strong>Languages :</strong> <span class="m-l-5"><span class="flag-icon flag-icon-us m-r-5 m-t-0" title="us"></span> <span>English</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-de m-r-5" title="de"></span> <span>German</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-es m-r-5" title="es"></span> <span>Spanish</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-fr m-r-5" title="fr"></span> <span>French</span></span>
+                            <p class="text-muted font-13"><strong>Full Name :</strong> <span class="m-l-15"><?php echo $full_name; ?></span></p>
+                            <p class="text-muted font-13"><strong>Mobile :</strong><span class="m-l-15"><?php echo $mobile; ?></span></p>
+                            <p class="text-muted font-13"><strong>Email :</strong> <span class="m-l-15"><?php echo $email; ?></span></p>
+                            <p class="text-muted font-13"><strong>Location :</strong> <span class="m-l-15"><?php echo $district; ?></span></p>
+                            <p class="text-muted font-13"><strong>Languages :</strong> <span class="m-l-5"><span class="flag-icon flag-icon-us m-r-5 m-t-0" title="us"></span> <span>Bangla & English</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-de m-r-5" title="de"></span> <span>German</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-es m-r-5" title="es"></span> <span>Spanish</span> </span><span class="m-l-5"><span class="flag-icon flag-icon-fr m-r-5" title="fr"></span> <span>French</span></span>
                             </p>
                         </div>
                         <ul class="social-links list-inline mt-4 mb-0">
@@ -176,7 +257,7 @@
                     </div>
                 </div>
                 <div class="card-box">
-                    <h4 class="header-title mb-3">My Projects</h4>
+                    <h4 class="header-title mb-3">My Work</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
