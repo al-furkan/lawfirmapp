@@ -49,7 +49,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Searchwork</title>
-  <link rel="stylesheet" href="./css/search.css" />
+  <link rel="stylesheet" href="../css/search.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -59,11 +59,7 @@
 <body>
   <header class="header">
     <div class="logo">
-      <a href="index.php">LexConsultium</a>
-      <div class="search_box">
-        <input type="text" placeholder="Search LexConsultium">
-        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-      </div>
+      <a href="../index.php">Expenditure(ব্যয়)</a>
     </div>
 
     <div class="header-icons">
@@ -76,27 +72,27 @@
     <nav>
       <div class="side_navbar">
         <span>Main Menu</span>
-            <a href="expenditure.php?land=1" class="<?php echo (isset($_GET['land']) ? 'active' : ''); ?>">Land</a>
-            <a href="expenditure.php?rjsc=1" class="<?php echo (isset($_GET['rjsc']) ? 'active' : ''); ?>">Rjsc</a>
+            <a href="expenditure.php?input=1" class="<?php echo (isset($_GET['input']) ? 'active' : ''); ?>">Submit data</a>
+            <a href="expenditure.php?srcex=1" class="<?php echo (isset($_GET['srcex']) ? 'active' : ''); ?>">Multiple Searching</a>
+            <a href="expenditure.php?srcex=1" class="<?php echo (isset($_GET['srcex']) ? 'active' : ''); ?>">Single Searching</a>
 
         <div class="links">
           <span>Quick Link</span>
-          <a href="./viweland.php">View Land</a>
-          <a href="./viewrjsc.php">View Rjsc</a>
+          <a href="./view.php">View</a>
+          <a href="./view.php">View Rjsc</a>
          
         </div>
       </div>
     </nav>
 
     <div class="main-body">
-      <h2>Search</h2>
       <div class="promo_card">
       <?php  
                 // Validate and sanitize GET parameters
-                if(filter_input(INPUT_GET, 'land', FILTER_VALIDATE_INT)) {
-                    include_once("./land.php");
-                } elseif(filter_input(INPUT_GET, 'rjsc', FILTER_VALIDATE_INT)) {
-                    include_once("./Rjsc.php");
+                if(filter_input(INPUT_GET, 'input', FILTER_VALIDATE_INT)) {
+                    include_once("./input.php");
+                } elseif(filter_input(INPUT_GET, 'srcex', FILTER_VALIDATE_INT)) {
+                    include_once("./search.php");
                 } else {
                     echo "<p>Please select a valid option from the menu.</p>";
                 }
@@ -127,4 +123,4 @@
 
 
 
-<?php  } ?>
+<?php  //} ?>

@@ -49,7 +49,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Searchwork</title>
-  <link rel="stylesheet" href="./css/search.css" />
+  <link rel="stylesheet" href="../css/search.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -77,9 +77,6 @@
         <a href="#" class="active">Dashboard</a>
         <a href="#"></a>
         <a href="./searchwork.php?#history_lists">History</a>
-        <a href="#">Application</a>
-        <a href="#">My Account</a>
-        <a href="#">Documnets</a>
 
         <div class="links">
           <span>Quick Link</span>
@@ -98,10 +95,10 @@
                 <label for="sector">Name :</label>
                 <select id="sector" name="lrname">
                 <?php 
-                       $get_d= "select * from lawer";
+                       $get_d= "select * from user_information";
                        $run_d = mysqli_query($con, $get_d);
                        while($row_d=mysqli_fetch_array($run_d)){
-                        $nameD = $row_d['lr_name'];  
+                        $nameD = $row_d['full_name'];  
                         echo"<option value='$nameD'>$nameD</option> ";
                        }         
                ?>
@@ -140,39 +137,39 @@
             </thead>
             <tbody>
             <?php
-             if(isset($_POST['search']))
-             {
-              $i=0;
-              $name=$_POST['lrname'];
-              $datea=$_POST['datea'];
-              $dateb=$_POST['dateb'];
+            //  if(isset($_POST['search']))
+            //  {
+            //   $i=0;
+            //   $name=$_POST['lrname'];
+            //   $datea=$_POST['datea'];
+            //   $dateb=$_POST['dateb'];
                
 
-              $get_w = "select * from work";
-              $run_w = mysqli_query($con, $get_w);
-              while($row_w=mysqli_fetch_array($run_w)){
-               $id = $row_w['id'];
-               $Wname = $row_w['wname'];
-               $Ref = $row_w['Ref'];
-               $Bank = $row_w['Bank'];
-               $Branch = $row_w['Branch'];
-               $acname = $row_w['acname'];
-               $Document = $row_w['Document'];
-               $startdat = $row_w['startdat'];
-               if($name==$Wname && $datea<=$startdat && $startdat<=$dateb){
+            //   $get_w = "select * from work";
+            //   $run_w = mysqli_query($con, $get_w);
+            //   while($row_w=mysqli_fetch_array($run_w)){
+            //    $id = $row_w['id'];
+            //    $Wname = $row_w['wname'];
+            //    $Ref = $row_w['Ref'];
+            //    $Bank = $row_w['Bank'];
+            //    $Branch = $row_w['Branch'];
+            //    $acname = $row_w['acname'];
+            //    $Document = $row_w['Document'];
+            //    $startdat = $row_w['startdat'];
+            //    if($name==$Wname && $datea<=$startdat && $startdat<=$dateb){
               
-             echo" <tr>
-                <th>$i</th>
-                <th>$startdat</th>
-                <th>$Wname</th>
-                <th>$Bank</th>
-                <th>$Branch</th>
-                <th>$acname</th>
-                <th>$Document</th>
-              </tr>";
-              $i++;
-               }
-            } 
+            //  echo" <tr>
+            //     <th>$i</th>
+            //     <th>$startdat</th>
+            //     <th>$Wname</th>
+            //     <th>$Bank</th>
+            //     <th>$Branch</th>
+            //     <th>$acname</th>
+            //     <th>$Document</th>
+            //   </tr>";
+            //   $i++;
+              // }
+           // } 
             
           ?>
             </tbody>
@@ -192,11 +189,11 @@
             </thead>
             <tbody>
               <tr>
-                <td><?php echo $name; ?></td>
-                <td><?php echo $datea; ?></td>
-                <td><?php echo $i; ?></td>
+                <td><?php //echo $name; ?></td>
+                <td><?php //echo $datea; ?></td>
+                <td><?php //echo $i; ?></td>
               </tr>
-              <?php } ?>
+              <?php //} ?>
             </tbody>
           </table>
         </div>
@@ -213,4 +210,4 @@
 
 
 
-<?php  } ?>
+<?php  //} ?>

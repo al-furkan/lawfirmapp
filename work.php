@@ -85,7 +85,7 @@
                     </span>
                     <h3>Attendance</h3>
                 </a>
-                <a href="register.html">
+                <a href="./expenditure/expenditure.php">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
