@@ -157,7 +157,7 @@ section{
           <th>Description</th>
           <th>Status</th>
           <th><a href="./expenditure.php?update=1">Update</a></th>
-          <th><a href="./delete.php?">Delete</a></th>
+          <th><a href="./delete.php">Delete</a></th>
           <th><a href="./expenditure.php">Back</a></th>
 
         </tr>
@@ -179,8 +179,8 @@ section{
                          $date = $row_w['date'];
                          $description = $row_w['description'];
                          $status = $row_w['status'];
-                         if($full_name== $name){
-                        ?>
+                        
+                         ?>
         <tr>
         <td><?php echo $i++; ?></td>
           <td><?php echo $name; ?></td>
@@ -189,11 +189,11 @@ section{
           <td><?php echo $date; ?></td>
           <td><?php echo $description; ?></td>
           <td><?php echo $status; ?></td>
-          <td><a href="./expenditure.php?update=<?php echo $id; ?>">Update</a></td>
-          <td><a href="./delete.php?delete=<?php echo $id; ?>">Delete</a></td>
+          <td><a href="./expenditure.php?update=<?php echo $id;?>">Update</a></td>
+          <td><a href="./delete.php?delete_exp=<?php echo $id; ?>">Delete</a></td>
           <td><a href="./expenditure.php">Back</a></td>
         </tr>
-        <?php }}?>
+        <?php }?>
       </tbody>
     </table>
   </div>

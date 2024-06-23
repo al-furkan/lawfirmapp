@@ -1,5 +1,11 @@
 <?php
 require("./db.php");
+session_start();
+
+if(!isset($_SESSION["re_key"])){
+    header('location:chackup.php');
+    exit();
+}
 
 if (isset($_POST['btn'])) {
     // Get form data
@@ -23,6 +29,7 @@ if (isset($_POST['btn'])) {
     $office_id = mysqli_real_escape_string($con, $_POST['office_id']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $repeat_password = mysqli_real_escape_string($con, $_POST['repeat_password']);
+    $brance = mysqli_real_escape_string($con, $_POST['brance']);
 
     // Password hashing and validation
     if ($password !== $repeat_password) {
@@ -31,27 +38,56 @@ if (isset($_POST['btn'])) {
         exit();
     }
 
+    //$hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     // File uploads
     $target_dir = "uploads/";
     $target_file_image = $target_dir . basename($_FILES["image"]["name"]);
     $target_file_cv = $target_dir . basename($_FILES["cv"]["name"]);
 
+    // Validate file uploads
+    $allowed_image_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $allowed_cv_types = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    $max_file_size = 2 * 1024 * 1024; // 2MB
+
+    if (!in_array($_FILES["image"]["type"], $allowed_image_types) || $_FILES["image"]["size"] > $max_file_size) {
+        echo "<script>alert('Invalid image file!');</script>";
+        echo "<script>window.open('register.php', '_self');</script>";
+        exit();
+    }
+
+    if (!in_array($_FILES["cv"]["type"], $allowed_cv_types) || $_FILES["cv"]["size"] > $max_file_size) {
+        echo "<script>alert('Invalid CV file!');</script>";
+        echo "<script>window.open('register.php', '_self');</script>";
+        exit();
+    }
+
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file_image) && move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file_cv)) {
         // Insert data into database
         $sql = "INSERT INTO user_information (
-                    full_name, dob, email, mobile, gender, father_name, id_type, id_number, image, cv, issued_date, expiry_date, address_type, nationality, state, district, post_number, ward_village, occupation, office_id, password
+                    full_name, dob, email, mobile, gender, father_name, id_type, id_number, image, cv, issued_date, expiry_date, address_type, nationality, state, district, post_number, ward_village, occupation, office_id, password, brance
                 ) VALUES (
-                    '$full_name', '$dob', '$email', '$mobile', '$gender', '$father_name', '$id_type', '$id_number', '$target_file_image', '$target_file_cv', '$issued_date', '$expiry_date', '$address_type', '$nationality', '$state', '$district', '$post_number', '$ward_village', '$occupation', '$office_id', '$password'
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                 )";
 
-        if ($con->query($sql) === TRUE) {
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param(
+            "ssssssssssssssssssssss",
+            $full_name, $dob, $email, $mobile, $gender, $father_name, $id_type, $id_number, 
+            $target_file_image, $target_file_cv, $issued_date, $expiry_date, $address_type, 
+            $nationality, $state, $district, $post_number, $ward_village, $occupation, 
+            $office_id, $password, $brance
+        );
+
+        if ($stmt->execute()) {
             echo "<script>alert('Registration completed successfully!');</script>";
             echo "<script>window.open('register.php', '_self');</script>";
         } else {
             echo "<script>alert('Error: " . $con->error . "');</script>";
             echo "<script>window.open('register.php', '_self');</script>";
         }
+
+        $stmt->close();
     } else {
         echo "<script>alert('File upload failed!');</script>";
         echo "<script>window.open('register.php', '_self');</script>";
@@ -60,18 +96,6 @@ if (isset($_POST['btn'])) {
     $con->close();
 }
 ?>
-<?php
-    
-    session_start();
-	include('./db.php');
-    $_SESSION["re_key"];
-
-
-    if(!isset($_SESSION["re_key"])){
-     header('location:chackup.php');
-    }
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,20 +115,9 @@ if (isset($_POST['btn'])) {
 <body>
     <div class="container">
         <header>Registration</header>
-          <div style="
-    display: flex;
-    justify-content: flex-end;
-   
-    ">
-               <a href="./logout.php" style="
-    background-color: #4070f4;
-    text-decoration: none;
-    color: black;
-    font-size:20px; 
-    padding: 10px;
-    border-radius:5px;
-    ">Logout</a>
-          </div>
+        <div style="display: flex; justify-content: flex-end;">
+            <a href="./logout.php" style="background-color: #4070f4; text-decoration: none; color: black; font-size: 20px; padding: 10px; border-radius: 5px;">Logout</a>
+        </div>
         <form action="./register.php" method="post" enctype="multipart/form-data">
             <div class="form first">
                 <div class="details personal">
@@ -255,6 +268,16 @@ if (isset($_POST['btn'])) {
                         <div class="input-field">
                             <label>Repeat Password</label>
                             <input type="password" name="repeat_password" placeholder="Repeat Password" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Brance</label>
+                            <select name="brance" required>
+                                <option disabled selected>Select Brance in Office</option>
+                                <option>Brance -1</option>
+                                <option>Brance -2</option>
+                                <option>Brance -3</option>
+                                <option>Brance -4</option>
+                            </select>
                         </div>
                     </div>
 

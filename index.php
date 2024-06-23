@@ -9,41 +9,7 @@
      header('location:login.php');
     }
 
-	$Id =  $_SESSION["office_id"];
-	$get_user = "select * from user_information where office_id ='$Id'";
-	$run_user = mysqli_query($con, $get_user);
-	$row_user=mysqli_fetch_array($run_user);
-	 $id = $row_user['id'];
-	 $full_name = $row_user['full_name'];
-	 $dob = $row_user['dob'];
-	 $email = $row_user['email'];
-     $mobile = $row_user['mobile'];
-	 $gender = $row_user['gender'];
-	 $father_name = $row_user['father_name'];
-
-     $id_type = $row_user['id_type'];
-	 $id_number = $row_user['id_number'];
-	 $image = $row_user['image'];
-	 $cv = $row_user['cv'];
-     $issued_date = $row_user['issued_date'];
-	 $expiry_date = $row_user['expiry_date'];
-	 $address_type = $row_user['address_type'];
-	 $nationality = $row_user['nationality'];
-
-     $state = $row_user['state'];
-	 $district = $row_user['district'];
-	 $post_number = $row_user['post_number'];
-	 $ward_village = $row_user['ward_village'];
-     $occupation = $row_user['occupation'];
-	 $office_id = $row_user['office_id'];
-	 $password = $row_user['password'];
-	 $created_at = $row_user['created_at'];
-
-?>
-
-
-
-
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +28,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                   <a href="./adminprofile.php"> <img src="images/logo.png"></a>
+                   <a href="./adminprofile.php"> <img src="./images/Screenshot_28.jpg"></a>
                     <h2>Fon<span class="danger">Click</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -200,32 +166,96 @@
             </div>
             <!-- End of Analyses -->
 
-            <!-- New Users Section -->
-            <div class="new-users">
-                <h2>New Users</h2>
-                <div class="user-list">
-                    <div class="user">
-                        <img src="images/profile-2.jpg">
-                        <h2>Jack</h2>
-                        <p>54 Min Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="images/profile-3.jpg">
-                        <h2>Amir</h2>
-                        <p>3 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="images/profile-4.jpg">
-                        <h2>Ember</h2>
-                        <p>6 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="images/plus.png">
-                        <h2>More</h2>
-                        <p>New User</p>
-                    </div>
+       <!-- New Users Section -->
+<div class="new-users">
+    <h2>New Users</h2>
+    <div class="user-list" id="user-list">
+        <?php
+        $get_w = "SELECT * FROM user_information  LIMIT 3";
+        $run_w = mysqli_query($con, $get_w);
+
+        if ($run_w) {
+            while ($row_w = mysqli_fetch_array($run_w)) {
+                $id = $row_w['id'];
+                $full_name = $row_w['full_name'];
+                $image = $row_w['image'];
+                $occupation = $row_w['occupation'];
+                ?>
+                <div class="user">
+                    <img src="<?php echo $image; ?>" alt="<?php echo $full_name; ?>">
+                    <h2><?php echo $full_name; ?></h2>
+                    <p><?php echo $occupation; ?></p>
                 </div>
-            </div>
+                <?php 
+            }
+        } else {
+            echo "<script>alert('Error: " . mysqli_error($con) . "');</script>";
+        }
+        ?>
+        <div class="user" id="more-button">
+            <button>
+            <img src="images/plus.png" alt="More">
+            <h2>More</h2>
+            <p>New User</p>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- End of New Users Section -->
+
+<script>
+document.getElementById('more-button').addEventListener('click', function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'load_more.php', true);
+    xhr.onload = function() {
+        if (this.status == 200) {
+            // Append the new user data to the user list
+            var userList = document.getElementById('user-list');
+            userList.innerHTML = this.responseText;
+        } else {
+            alert('Failed to load more users');
+        }
+    };
+    xhr.send();
+});
+</script>
+
+
+
+<?php
+  
+	$Id =  $_SESSION["office_id"];
+	$get_user = "select * from user_information where office_id ='$Id'";
+	$run_user = mysqli_query($con, $get_user);
+	$row_user=mysqli_fetch_array($run_user);
+	 $id = $row_user['id'];
+	 $full_name = $row_user['full_name'];
+	 $dob = $row_user['dob'];
+	 $email = $row_user['email'];
+     $mobile = $row_user['mobile'];
+	 $gender = $row_user['gender'];
+	 $father_name = $row_user['father_name'];
+
+     $id_type = $row_user['id_type'];
+	 $id_number = $row_user['id_number'];
+	 $image = $row_user['image'];
+	 $cv = $row_user['cv'];
+     $issued_date = $row_user['issued_date'];
+	 $expiry_date = $row_user['expiry_date'];
+	 $address_type = $row_user['address_type'];
+	 $nationality = $row_user['nationality'];
+
+     $state = $row_user['state'];
+	 $district = $row_user['district'];
+	 $post_number = $row_user['post_number'];
+	 $ward_village = $row_user['ward_village'];
+     $occupation = $row_user['occupation'];
+	 $office_id = $row_user['office_id'];
+	 $password = $row_user['password'];
+     $brance = $row_user['brance'];
+	 $created_at = $row_user['created_at'];
+
+?>
             <!-- End of New Users Section -->
 
             <!-- Recent Orders Table -->

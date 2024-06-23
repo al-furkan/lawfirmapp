@@ -48,7 +48,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Searchwork</title>
+  <title>expenditure</title>
   <link rel="stylesheet" href="../css/search.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -74,12 +74,15 @@
         <span>Main Menu</span>
             <a href="expenditure.php?input=1" class="<?php echo (isset($_GET['input']) ? 'active' : ''); ?>">Submit data</a>
             <a href="expenditure.php?srcex=1" class="<?php echo (isset($_GET['srcex']) ? 'active' : ''); ?>">Multiple Searching</a>
-            <a href="expenditure.php?srcex=1" class="<?php echo (isset($_GET['srcex']) ? 'active' : ''); ?>">Single Searching</a>
+            <a href="expenditure.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>">Single Searching</a>
 
         <div class="links">
           <span>Quick Link</span>
-          <a href="./view.php">View</a>
-          <a href="./view.php">View Rjsc</a>
+          <?php if($occupation != "admin" && $occupation != "Manager" && $occupation != "Advocate") { ?>
+         <a href="./view.php">View</a>
+        <?php } if($occupation == "admin" || $occupation == "Manager") { ?>
+         <a href="./viewAll.php">View</a>
+         <?php } ?>
          
         </div>
       </div>
@@ -92,8 +95,14 @@
                 if(filter_input(INPUT_GET, 'input', FILTER_VALIDATE_INT)) {
                     include_once("./input.php");
                 } elseif(filter_input(INPUT_GET, 'srcex', FILTER_VALIDATE_INT)) {
-                    include_once("./search.php");
-                } else {
+                    include_once("./multiplesearch.php");
+                } 
+                elseif(filter_input(INPUT_GET, 'srcey', FILTER_VALIDATE_INT)) {
+                  include_once("./search.php");
+              } elseif(filter_input(INPUT_GET, 'update', FILTER_VALIDATE_INT)) {
+                include_once("./update.php");
+            } 
+              else {
                     echo "<p>Please select a valid option from the menu.</p>";
                 }
             ?>
@@ -103,10 +112,11 @@
         <div class="list1">
           <div class="row">
            
-        </div>
+          </div>
 
         <div class="list2">
           <div class="row">
+
           </div>
         </div>
       </div>
