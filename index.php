@@ -57,17 +57,29 @@
                     </span>
                     <h3>Work</h3>
                 </a>
-                <a href="#">
+                <?php   
+                $Id =  $_SESSION["office_id"];
+                $get_user = "select * from user_information where office_id ='$Id'";
+                $run_user = mysqli_query($con, $get_user);
+                $row_user=mysqli_fetch_array($run_user);
+                $occupation = $row_user['occupation'];
+                if($occupation=="Admin" || $occupation="Manager"){
+                
+                ?>
+
+
+                <a href="./addOption/addOption.php">
                     <span class="material-icons-sharp">
                         receipt_long
                     </span>
-                    <h3>History</h3>
+                    <h3>Add Option</h3>
                 </a>
-                <a href="#" class="active">
+                <?php }?>
+                <a href="./attendence/" class="active">
                     <span class="material-icons-sharp">
                         insights
                     </span>
-                    <h3>Analytics</h3>
+                    <h3>Attendance</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">

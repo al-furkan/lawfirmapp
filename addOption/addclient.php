@@ -9,6 +9,8 @@ if (isset($_POST['btn'])) {
     $date = mysqli_real_escape_string($con, $_POST['date']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
 
+    // Insert data into the database
+    $sql = "INSERT INTO expenditure (name, field, amount, date, description, status) VALUES ('$name', '$field', '$amount', '$date', '$description', 'Pending Payment')";
 
     if ($con->query($sql) === TRUE) {
         echo "<script>alert('Data submitted successfully!');</script>";
@@ -30,22 +32,7 @@ if (isset($_POST['btn'])) {
             <div class="details address">
                 <div class="fields">
                     <div class="input-field">
-                        <label>Name</label>
-                        <select name="name" required>
-                            <option disabled selected>Select your Name</option>
-                            <?php 
-                            include('../db.php');
-                            $get_d = "SELECT * FROM user_information";
-                            $run_d = mysqli_query($con, $get_d);
-                            while ($row_d = mysqli_fetch_array($run_d)) {
-                                $nameD = $row_d['full_name'];  
-                                echo "<option value='$nameD'>$nameD</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="input-field">
-                        <label>Field</label>
+                        <label>Expenditure Field</label>
                         <select name="field" required>
                             <option disabled selected>Select field in Office</option>
                             <option>Transport</option>
@@ -75,4 +62,3 @@ if (isset($_POST['btn'])) {
             </div>
         </div>
     </form>
-

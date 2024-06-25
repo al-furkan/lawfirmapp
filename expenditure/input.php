@@ -47,7 +47,7 @@ if (isset($_POST['btn'])) {
                         </select>
                     </div>
                     <div class="input-field">
-                        <label>Field</label>
+                        <label>Expenditure Field</label>
                         <select name="field" required>
                             <option disabled selected>Select field in Office</option>
                             <option>Transport</option>

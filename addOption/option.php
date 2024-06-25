@@ -46,14 +46,6 @@ if (isset($_POST['btn'])) {
                         <label>Amount</label>
                         <input type="text" name="amount" placeholder="Enter amount" required>
                     </div>
-                    <div class="input-field">
-                        <label>Date</label>
-                        <input type="date" name="date" min="2018-01-01" placeholder="Enter date" required>
-                    </div>
-                    <div class="input-field">
-                        <label>Description</label>
-                        <input type="text" name="description" placeholder="Enter description" required>
-                    </div>
                 </div>
                 <button type="submit" name="btn" class="submitBtn">
                     <span class="btnText">Submit</span>

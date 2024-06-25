@@ -47,7 +47,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Other</title>
+  <title>view</title>
   <style>
     h1{
   font-size: 30px;
@@ -188,9 +188,13 @@ section{
           <td><?php echo $amount; ?></td>
           <td><?php echo $date; ?></td>
           <td><?php echo $description; ?></td>
-          <td><?php echo $status; ?></td>
-          <td><a href="./expenditure.php?update=<?php echo $id; ?>">Update</a></td>
-          <td><a href="./delete.php?delete=<?php echo $id; ?>">Delete</a></td>
+          <?php if($state=="Received Payment"){ ?>
+          <td style="color:green;font-size:14px;"><?php echo $status; ?></td>
+          <?php } else{?>
+             <td style="color:Red;font-size:14px;"><?php echo $status; ?></td>
+             <td><a href="./expenditure.php?update=<?php echo $id; ?>">Update</a></td>
+             <td><a href="./delete.php?delete=<?php echo $id; ?>">Delete</a></td>
+          <?php  }?>
           <td><a href="./expenditure.php">Back</a></td>
         </tr>
         <?php }}?>
@@ -206,5 +210,6 @@ section{
   <i>♥</i> by
   <a target="_blank" href="https://fonclick.com/furkan">Furkan</a>
 </div>
+<script src="../js/table.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
     
     session_start();
-	include('../db.php');
+	 include('../db.php');
     $_SESSION["office_id"];
 
 
@@ -30,13 +30,12 @@
 	 $address_type = $row_user['address_type'];
 	 $nationality = $row_user['nationality'];
 
-     $state = $row_user['state'];
+    $state = $row_user['state'];
 	 $district = $row_user['district'];
 	 $post_number = $row_user['post_number'];
 	 $ward_village = $row_user['ward_village'];
-     $occupation = $row_user['occupation'];
+   $occupation = $row_user['occupation'];
 	 $office_id = $row_user['office_id'];
-	 $password = $row_user['password'];
 	 $created_at = $row_user['created_at'];
 
 ?>
@@ -73,14 +72,14 @@
       <div class="side_navbar">
         <span>Main Menu</span>
             <a href="expenditure.php?input=1" class="<?php echo (isset($_GET['input']) ? 'active' : ''); ?>">Submit data</a>
-            <a href="expenditure.php?srcex=1" class="<?php echo (isset($_GET['srcex']) ? 'active' : ''); ?>">Multiple Searching</a>
-            <a href="expenditure.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>">Single Searching</a>
+            
+            <a href="./search.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>"> Search</a>
 
         <div class="links">
           <span>Quick Link</span>
-          <?php if($occupation != "admin" && $occupation != "Manager" && $occupation != "Advocate") { ?>
+          <?php if($occupation != "Admin" && $occupation != "Manager" && $occupation != "Advocate") { ?>
          <a href="./view.php">View</a>
-        <?php } if($occupation == "admin" || $occupation == "Manager") { ?>
+        <?php } if($occupation == "Admin" || $occupation == "Manager") { ?>
          <a href="./viewAll.php">View</a>
          <?php } ?>
          
@@ -94,9 +93,7 @@
                 // Validate and sanitize GET parameters
                 if(filter_input(INPUT_GET, 'input', FILTER_VALIDATE_INT)) {
                     include_once("./input.php");
-                } elseif(filter_input(INPUT_GET, 'srcex', FILTER_VALIDATE_INT)) {
-                    include_once("./multiplesearch.php");
-                } 
+                }
                 elseif(filter_input(INPUT_GET, 'srcey', FILTER_VALIDATE_INT)) {
                   include_once("./search.php");
               } elseif(filter_input(INPUT_GET, 'update', FILTER_VALIDATE_INT)) {
@@ -111,7 +108,6 @@
       <div class="history_lists" id="history_lists">
         <div class="list1">
           <div class="row">
-           
           </div>
 
         <div class="list2">
@@ -128,6 +124,7 @@
     </div>
   </div>
   <script>feather.replace();</script>
+  <script src="../js/table.js"></script>
 </body>
 </html>
 
