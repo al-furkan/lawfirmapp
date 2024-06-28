@@ -153,8 +153,8 @@ section{
           <th>Name</th>
           <th>Email</th>
           <th>Password</th>
-          <th>Update</th>
-          <th>Delete</th>
+          <th><a href="./expenditure.php?update=1">Update</a></th>
+          <th><a href="./delete.php?">Delete</a></th>
           <th><a href="./addOption.php">Back</a></th>
 
         </tr>
@@ -179,9 +179,8 @@ section{
           <td><?php echo $name; ?></td>
           <td><?php echo $email; ?></td>
           <td><?php echo $password; ?></td>
-          <td><a href="./addOption.php?update=<?php echo $id; ?>">Update</a>
-        </td> <td><a href="./addOption.php?delete=<?php echo $id; ?>">Delete</a></td>
-          <td><a href="./addOption.php">Back</a></td>
+          <td><a href="./expenditure.php?update=<?php echo $id; ?>">Update</a></td> <td><a href="./delete.php?delete=<?php echo $id; ?>">Delete</a></td>
+          <td><a href="./expenditure.php">Back</a></td>
         </tr>
         <?php }?>
       </tbody>

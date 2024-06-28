@@ -72,20 +72,17 @@
       <div class="side_navbar">
         <span>Main Menu</span>
             <a href="addOption.php?option=1" class="<?php echo (isset($_GET['option']) ? 'active' : ''); ?>">Submit Option</a>
-            <a href="AddOption.php?input=1" class="<?php echo (isset($_GET['input']) ? 'active' : ''); ?>">Add Secret Key</a>
+            <a href="AddOption.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>">Add Secret Key</a>
             
-            <a href="AddOption.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>">Client information</a>
+            <a href="AddOption.php?client=1" class="<?php echo (isset($_GET['client']) ? 'active' : ''); ?>">Client information</a>
             <a href="AddOption.php?client=1" class="<?php echo (isset($_GET['client']) ? 'active' : ''); ?>"> Search</a>
             <a href="AddOption.php?srcey=1" class="<?php echo (isset($_GET['srcey']) ? 'active' : ''); ?>"> Search</a>
 
         <div class="links">
           <span>Quick Link</span>
-          <?php if($occupation != "Admin" && $occupation != "Manager" && $occupation != "Advocate") { ?>
-         <a href="./view.php">View</a>
-        <?php } if($occupation == "Admin" || $occupation == "Manager") { ?>
-         <a href="./viewAll.php">View</a>
-         <?php } ?>
-         
+          <a href="./viewseckey.php">View Secret Key</a>
+          <a href="./viewoption.php">View Option</a>
+          <a href="./view.php">View Client</a>
         </div>
       </div>
     </nav>
@@ -97,13 +94,14 @@
                 if(filter_input(INPUT_GET, 'option', FILTER_VALIDATE_INT)) {
                     include_once("./option.php");
                 }
-                elseif(filter_input(INPUT_GET, 'input', FILTER_VALIDATE_INT)) {
-                  include_once("./input.php");
-              } elseif(filter_input(INPUT_GET, 'srcey', FILTER_VALIDATE_INT)) {
-                include_once("./addSecretkey.php");
-               } elseif(filter_input(INPUT_GET, 'client', FILTER_VALIDATE_INT)) {
+                elseif(filter_input(INPUT_GET, 'srcey', FILTER_VALIDATE_INT)) {
+                  include_once("./addSecretkey.php");
+              } elseif(filter_input(INPUT_GET, 'client', FILTER_VALIDATE_INT)) {
                 include_once("./addclient.php");
-                } 
+               }
+                elseif(filter_input(INPUT_GET, 'update', FILTER_VALIDATE_INT)) {
+                  include_once("./update.php");
+                  } 
               else {
                     echo "<p>Please select a valid option from the menu.</p>";
                 }

@@ -3,21 +3,18 @@ include('../db.php');
 
 if (isset($_POST['btn'])) {
     // Get form data
-    $name = mysqli_real_escape_string($con, $_POST['name']);
     $field = mysqli_real_escape_string($con, $_POST['field']);
-    $amount = mysqli_real_escape_string($con, $_POST['amount']);
-    $date = mysqli_real_escape_string($con, $_POST['date']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
+    $option = mysqli_real_escape_string($con, $_POST['option']);
 
     // Insert data into the database
-    $sql = "INSERT INTO expenditure (name, field, amount, date, description, status) VALUES ('$name', '$field', '$amount', '$date', '$description', 'Pending Payment')";
+    $sql = "INSERT INTO optionfield (`option_field`, `option`) VALUES ('$field', '$option')";
 
     if ($con->query($sql) === TRUE) {
         echo "<script>alert('Data submitted successfully!');</script>";
-        echo "<script>window.open('expenditure.php', '_self');</script>";
+        echo "<script>window.open('addoption.php', '_self');</script>";
     } else {
         echo "<script>alert('Error: " . $con->error . "');</script>";
-        echo "<script>window.open('expenditure.php', '_self');</script>";
+        echo "<script>window.open('addoption.php', '_self');</script>";
     }
 
     $con->close();
@@ -27,24 +24,24 @@ if (isset($_POST['btn'])) {
 
 
 <header>Submit Data</header>
-    <form action="./input.php" method="post" enctype="multipart/form-data">
+    <form action="./option.php" method="post" enctype="multipart/form-data">
         <div class="form second">
             <div class="details address">
                 <div class="fields">
                     <div class="input-field">
-                        <label>Expenditure Field</label>
+                        <label>Selected Field</label>
                         <select name="field" required>
-                            <option disabled selected>Select field in Office</option>
-                            <option>Transport</option>
-                            <option>Snacks</option>
-                            <option>Office</option>
-                            <option>Salary</option>
-                            <option>Other</option>
+                            <option disabled selected>Select field</option>
+                            <option>expenditure field</option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
                         </select>
                     </div>
                     <div class="input-field">
-                        <label>Amount</label>
-                        <input type="text" name="amount" placeholder="Enter amount" required>
+                        <label>Option</label>
+                        <input type="text" name="option" placeholder="Enter option name" required>
                     </div>
                 </div>
                 <button type="submit" name="btn" class="submitBtn">
