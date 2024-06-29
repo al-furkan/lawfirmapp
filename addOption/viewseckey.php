@@ -150,10 +150,7 @@ section{
       <thead>
         <tr>
           <th>Sr-No</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th><a href="./expenditure.php?update=1">Update</a></th>
+          <th>Key</th>
           <th><a href="./delete.php?">Delete</a></th>
           <th><a href="./addOption.php">Back</a></th>
 
@@ -165,22 +162,18 @@ section{
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
         <?php
-                        $get_w = "select * from client order by id desc";
+                        $get_w = "select * from regkey order by id desc";
                         $run_w = mysqli_query($con, $get_w);
                          $i=1;
                         while($row_w=mysqli_fetch_array($run_w)){
                          $id = $row_w['id'];
-						             $name = $row_w['name'];
-                         $email = $row_w['email'];
-                         $password = $row_w['password'];
+						             $re_key = $row_w['re_key'];
                         ?>
         <tr>
         <td><?php echo $i++; ?></td>
-          <td><?php echo $name; ?></td>
-          <td><?php echo $email; ?></td>
-          <td><?php echo $password; ?></td>
-          <td><a href="./expenditure.php?update=<?php echo $id; ?>">Update</a></td> <td><a href="./delete.php?delete=<?php echo $id; ?>">Delete</a></td>
-          <td><a href="./expenditure.php">Back</a></td>
+          <td><?php echo $re_key; ?></td>
+          <td><a href="./delete.php?keydelete=<?php echo $id; ?>">Delete</a></td>
+          <td><a href="./addOption.php">Back</a></td>
         </tr>
         <?php }?>
       </tbody>
