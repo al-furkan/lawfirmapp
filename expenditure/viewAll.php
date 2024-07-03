@@ -211,7 +211,7 @@ $created_at = $row_user['created_at'];
             }
             ?>
           </td>
-          <td><a style="color:red;font-size:16px;" href="./delete.php?delete_exp=<?php echo $id; ?>"><i class='fa fa-trash' aria-hidden='true'></i></a></td>
+          <td><a style="color:red;font-size:16px;" href="./delete.php?delete=<?php echo $id; ?>"><i class='fa fa-trash' aria-hidden='true'></i></a></td>
           <td style="font-size:16px;"><a href="./expenditure.php"><i class='fa fa-arrow-left' aria-hidden='true'></i></a></td>
         </tr>
         <?php } ?>

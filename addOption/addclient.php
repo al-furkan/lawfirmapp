@@ -32,8 +32,8 @@ if (isset($_POST['btn'])) {
                     <input type="text" name="name" placeholder="Enter client Name" required>
                 </div>
                 <div class="input-field">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="Enter client email" required>
+                    <label>Client ID</label>
+                    <input type="text" name="email" placeholder="Enter client ID" required>
                 </div>
                 <div class="input-field">
                     <label>Password</label>
