@@ -37,7 +37,7 @@ $occupation = $row_user['occupation'];
 
 <header>Search Data</header>
 <?php if ($occupation == "admin" || $occupation == "Manager") { ?>
-    <form action="./search.php" method="post" enctype="multipart/form-data">
+    <form action="./search.php?#data" method="post" enctype="multipart/form-data">
         <div class="form second">
             <div class="details address">
                 <div class="fields">
@@ -72,7 +72,7 @@ $occupation = $row_user['occupation'];
         </div>
     </form>
 <?php } else { ?>
-    <form action="./search.php" method="post" enctype="multipart/form-data">
+    <form action="./search.php?#data" method="post" enctype="multipart/form-data">
         <div class="form second">
             <div class="details address">
                 <div class="fields">
@@ -90,7 +90,7 @@ $occupation = $row_user['occupation'];
     </form>
 <?php } ?>
 
-<section>
+<section id="data">
     <h1>View Expenditure</h1>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">

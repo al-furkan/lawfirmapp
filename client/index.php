@@ -14,9 +14,38 @@
 	$run_user = mysqli_query($con, $get_user);
 	$row_user=mysqli_fetch_array($run_user);
 	 $id = $row_user['id'];
-	 $full_name = $row_user['name'];
+	 $name = $row_user['name'];
 	 $email = $row_user['email'];
-    ?>
+
+
+if(isset($_POST['btn'])) {
+
+    $assignPerson = mysqli_real_escape_string($con, $_POST['name']);
+    $description = mysqli_real_escape_string($con, $_POST['dis']);
+    $date = mysqli_real_escape_string($con, $_POST['date']);
+
+    // Handling file upload
+    $document = $_FILES['doc']['name'];
+    $temp_name = $_FILES['doc']['tmp_name'];
+    $documentFolder = "../uploads/" . basename($document);
+
+    if (move_uploaded_file($temp_name, $documentFolder)) {
+        // Insert data into the database
+        $query = "INSERT INTO clientdocument (clientid, assignperson, document, description, date,) 
+                  VALUES ('$email', '$assignPerson', '$documentFolder', '$description', '$date')";
+
+        if (mysqli_query($con, $query)) {
+            echo "Document submitted successfully.";
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($con);
+        }
+    } else {
+        echo "Failed to upload document.";
+    }
+
+    mysqli_close($con);
+}
+?>
 
 
 
@@ -28,7 +57,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <title>Responsive Dashboard Design #2 | AsmrProg</title>
+    <title>Lawfirm Client</title>
 </head>
 
 <body>
@@ -42,7 +71,7 @@
         <ul class="side-menu">
             <li><a href="./index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="#download"><i class='bx bx-store-alt'></i>Your Document</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Submit Document</a></li>
+            <li class="active"><a href="./index.php?#input"><i class='bx bx-analyse'></i>Submit Document</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Send Message</a></li>
         </ul>
         <ul class="side-menu">
@@ -136,47 +165,132 @@
             </ul>
             <!-- End of Insights -->
 
+
+                <!-- End of Insights -->
+
+
+
+
+
+
+
+
+<div class="input" id="input">
+<header>Submit Data</header>
+    <form action="./index.php" method="post" enctype="multipart/form-data">
+        <div class="form second">
+            <div class="details address">
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Assign Person</label>
+                        <select name="name" required>
+                            <option disabled selected>Select your Name</option>
+                            <?php 
+                            include('../db.php');
+                            $get_d = "SELECT * FROM user_information";
+                            $run_d = mysqli_query($con, $get_d);
+                            while ($row_d = mysqli_fetch_array($run_d)) {
+                                $nameD = $row_d['full_name'];  
+                                echo "<option value='$nameD'>$nameD</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label>Enter Document</label>
+                        <input type="file" name="doc" placeholder="Enter document" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Discription</label>
+                        <input type="text" name="dis" placeholder="Write some information " required>
+                    </div>
+                    <div class="input-field">
+                        <label>Date</label>
+                        <input type="date" name="date" min="2018-01-01" placeholder="Enter date" required>
+                    </div>
+                </div>
+                <button type="submit" name="btn" class="submitBtn">
+                    <span class="btnText">Submit</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+   
+</div>
+ <!-- input end here -->
+
+
+
+
+
+
             <div class="bottom-data">
                 <div class="orders">
                     <div class="header">
                         <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
+                        <h3>Recent Document</h3>
                         <i class='bx bx-filter'></i>
                         <i class='bx bx-search'></i>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th>Document Id</th>
+                                <th>Assign Person</th>
                                 <th>Order Date</th>
                                 <th>Status</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        $get_w = "select * from clientdocument order by id desc";
+                        $run_w = mysqli_query($con, $get_w);
+                         $i=1;
+                        while($row_w=mysqli_fetch_array($run_w)){
+                        $id = $row_w['id'];
+						$clientid = $row_w['clientid'];
+                         $Assignperson = $row_w['assignperson'];
+                         $document = $row_w['document'];
+                         $description = $row_w['description'];
+                         $date = $row_w['date'];
+                         $submitdocument = $row_w['submitdocument'];
+                         $status = $row_w['status'];
+                         if($email== $clientid){
+                        ?>
+
+
                             <tr>
+                            <td><?php echo $id;?></td>
                                 <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
+                                <?php echo $Assignperson;?>
                                 </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status completed">Completed</span></td>
+                                <td><?php echo $date;?></td>
+                                <?php 
+                                if($submitdocument!=NULL||$status="Completed"){
+                                   echo"
+                                   <td><span class='status completed'>Completed</span></td>
+                                    </div>
+                                    <a href='$submitdocument' class='report'>
+                                        <i class='bx bx-cloud-download'></i>
+                                        <span>Download File</span>
+                                    </a>
+                                </div> ";  
+                                }
+                                else if($status=NULL){
+                                    echo"<td><span class='status pending'>Pending</span></td>";
+                                }
+                                else if($status="Processing"){
+                                    echo"<td><span class='status process'>Processing</span></td>";
+                                }
+                                ?>
+                                
+                                <td><a href="delete.php?delete=<?php echo $id; ?>">Delete</a></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status process">Processing</span></td>
-                            </tr>
+
+                        <?php }}?>
+
                         </tbody>
                     </table>
                 </div>
