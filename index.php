@@ -85,14 +85,14 @@
                     <span class="material-icons-sharp">
                         mail_outline
                     </span>
-                    <h3>Tickets</h3>
+                    <h3>Client Message</h3>
                     <span class="message-count">27</span>
                 </a>
-                <a href="#">
+                <a href="./clienthandel/index.php">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
-                    <h3>Sale List</h3>
+                    <h3>client</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">
